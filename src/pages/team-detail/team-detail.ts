@@ -15,9 +15,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TeamDetailPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  team: any;
+
+  constructor(public nav: NavController, public navParams: NavParams) {
+    this.team = this.navParams.data;
+    console.log('**nav params: ', this.navParams)
   }
 
+  goHome(){
+    //this.nav.push(MyTeamsPage)
+    //this.nav.popToRoot()
+    //este es una pestania entonces para volver al home se debe usar lo sigiuente y nolo anterior
+    console.log('**parent', this.nav.parent);
+    this.nav.parent.parent.popToRoot();
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TeamDetailPage');
   }
