@@ -5,17 +5,23 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { MyTeamsPage } from '../pages/pages';
+import { GamePage } from '../pages/pages';
+import { TournamentsPage } from '../pages/pages';
+import { TeamDetailPage } from '../pages/pages';
+import { TeamsPage } from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { myTeamsPage } from '../pages/my-teams/my-teams.page';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    myTeamsPage
+    MyTeamsPage,
+    TournamentsPage,
+    GamePage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +32,9 @@ import { myTeamsPage } from '../pages/my-teams/my-teams.page';
     MyApp,
     HomePage,
     ListPage,
-    myTeamsPage
+    MyTeamsPage,
+    TournamentsPage,
+    GamePage
   ],
   providers: [
     StatusBar,
