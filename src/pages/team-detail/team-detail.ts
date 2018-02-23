@@ -9,7 +9,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  */
 
  import * as _ from 'lodash';
+
+ import { GamePage } from '../pages';
  import { EliteApi } from '../../shared/shared';
+
 @IonicPage()
 @Component({
   selector: 'page-team-detail',
@@ -48,7 +51,7 @@ export class TeamDetailPage {
                     let opponentname = isTeam1 ? g.team2 : g.team1;
                     let scoreDisplay = this.getScoreDisplay(isTeam1, g.team1Score, g.team2Score);
                     return {
-                      gameId: g.Id,
+                      gameId: g.id,
                       opponent: opponentname,
                       time: Date.parse(g.time),
                       location: g.location,
@@ -70,6 +73,11 @@ export class TeamDetailPage {
       return "";
     }
 
+  }
+
+  gameClicked($event, game){
+    let sourceGame = this.tourneyData.games.find(g => g.id === game.gameId)
+    this.nav.parent.parent.push(GamePage, sourceGame);
   }
 
 }
