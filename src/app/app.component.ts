@@ -8,13 +8,12 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
 import { MyTeamsPage, TournamentsPage } from '../pages/pages';
-import { EliteApi } from './shared/shared';
+import { EliteApi } from '../shared/shared';
 
 @Component({
   templateUrl: 'app.html',
   providers:[
     EliteApi,
-    Http,
     HttpModule
     
   ]
