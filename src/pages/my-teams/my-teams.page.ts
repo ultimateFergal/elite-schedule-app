@@ -6,6 +6,7 @@ import { TournamentsPage, TeamHomePage } from '../pages';
 import { EliteApi } from '../../shared/shared';
 
 @Component({
+    selector: 'my-teams.page',
     templateUrl: 'my-teams.page.html'
 })
 

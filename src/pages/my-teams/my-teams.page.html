@@ -11,29 +11,46 @@
 </ion-header>
 
 <ion-content>
-<!-- <ion-content padding> -->
-<!--         <p>You are not currently following any teams.</p>
-        <p>First select a tournament, then you can follow teams from their team page.</p> -->
+        <!-- <ion-content padding> -->
+    <ion-card  *ngIf="!favorites">
+        <ion-card-header class="my-teams-header">
+            No Followed Teams
+        </ion-card-header>
+        <ion-card-content>
+            <p>You are not currently following any teams.</p>
+            <p>First select a tournament, then you can follow teams from their team page.</p> 
+            <button ion-button icon-left full (click)="goToTournaments()" >
+                <ion-icon name="search"></ion-icon>
+                    Find a tournament    
+            </button>
+        </ion-card-content>
+    </ion-card>
 
+    <ion-card *ngIf="favorites">
         <ion-list>
-            <ion-list-header>Followed Teams</ion-list-header>
+            <ion-list-header class="my-teams-header">Followed Teams</ion-list-header>
             <button ion-item *ngFor="let item of favorites" (click)="favoriteTapped($event, item)">
-                <ion-icon name="star"></ion-icon>
+                <!-- <ion-icon name="star-outline"></ion-icon> -->
+                <ion-icon name="star-outline"></ion-icon>
                 {{ item.team.name }}
                 <p>{{ item.tournamentName }}</p>
             </button>
         </ion-list>
-        <p >To follow more teams, select a tournament
-            then you can follow teams from their page.
-        </p>
-        <!-- <button ion-button full round outline clear small icon-left icon-only incon-right (click)="goToTournaments()" > -->
-        <button ion-button icon-left full (click)="goToTournaments()" >
-            <ion-icon name="search"></ion-icon>
-            Find a tournament    
-        </button>
+        <ion-card-content>
+            <p >To follow more teams, select a tournament
+                then you can follow teams from their page.
+            </p>
+            <!-- <button ion-button full round outline clear small icon-left icon-only incon-right (click)="goToTournaments()" > -->
+            <button ion-button icon-left full (click)="goToTournaments()" >
+                <ion-icon name="search"></ion-icon>
+                Find a tournament    
+            </button>
+        </ion-card-content>
+    </ion-card>
+
         <ion-fab top right edge>
             <button ion-fab >
                 <ion-icon name="add"></ion-icon>
             </button>
-        </ion-fab>
+        </ion-fab> -->
 </ion-content>
