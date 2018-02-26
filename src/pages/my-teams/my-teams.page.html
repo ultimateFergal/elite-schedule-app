@@ -26,5 +26,14 @@
         <p >To follow more teams, select a tournament
             then you can follow teams from their page.
         </p>
-        <button ion-button (click)="goToTournaments()" >Find a tournament</button>
+        <!-- <button ion-button full round outline clear small icon-left icon-only incon-right (click)="goToTournaments()" > -->
+        <button ion-button icon-left full (click)="goToTournaments()" >
+            <ion-icon name="search"></ion-icon>
+            Find a tournament    
+        </button>
+        <ion-fab top right edge>
+            <button ion-fab >
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-fab>
 </ion-content>
