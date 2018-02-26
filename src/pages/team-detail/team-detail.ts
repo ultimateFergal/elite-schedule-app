@@ -43,7 +43,7 @@ export class TeamDetailPage {
     console.log('ionViewDidLoad TeamDetailPage');
     this.team = this.navParams.data;
     this.tourneyData = this.eliteApi.getCurrentTourney();
-
+    
     this.games = _.chain(this.tourneyData.games)
                   .filter(g => g.team1Id === this.team.id || g.team2Id === this.team.id)
                   .map(g => {

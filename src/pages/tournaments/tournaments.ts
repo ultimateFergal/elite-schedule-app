@@ -42,6 +42,7 @@ export class TournamentsPage {
       content: 'Getting tournaments...',
       spinner: 'dots',//Cambia el circulo por defecto a puntos
     })
+    
     loader.present().then(() => {
       this.eliteApi.getTournaments().then(data => this.tournaments = data);//Muestra que se carga mientrs espera la promesa que carga la informaci[on del servicio]
       loader.dismiss();

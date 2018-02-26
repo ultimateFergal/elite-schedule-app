@@ -26,6 +26,7 @@ export class EliteApi {
         return this.http.get(`${this.baseUrl}/tournaments-data/${tourneyId}.json`)
             .map((response: Response) => {
                 this.currentTourney = response.json();
+                console.log(this.currentTourney+"2"+tourneyId)
                 return this.currentTourney;
             });
     }
