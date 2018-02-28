@@ -1,5 +1,5 @@
 import { Component, } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, AlertController, NavController, NavParams, ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the TeamDetailPage page.
@@ -25,12 +25,15 @@ export class TeamDetailPage {
   dateFilter: string;
   games: any[];
   team: any;
+  isFollowing = false;
   teamStanding: any;
   private tourneyData: any;
   useDateFilter = false;
 
-  constructor(private nav: NavController, 
+  constructor(private alertController: AlertController, 
+              private nav: NavController, 
               private navParams: NavParams,
+              private toastController: ToastController,
               private eliteApi: EliteApi) {
     //this.team = this.navParams.data;
     console.log('**nav params: ', this.navParams)
@@ -101,6 +104,36 @@ export class TeamDetailPage {
       this.games = _.filter(this.allGames, g => moment(g.time).isSame(this.dateFilter, 'day'));
     } else {
       this.games = this.allGames;
+    }
+  }
+
+  toggleFollow(){
+    if(this.isFollowing){
+      let confirm = this.alertController.create({
+        title: 'Unfollow?',
+        message: 'Are you sure you want to unfollow?',
+        buttons: [
+          { 
+            text: 'Yes', 
+            handler: () => {
+              this.isFollowing = false;
+              // TODO: persist data
+
+              let toast =  this.toastController.create({
+                message: 'You have unfollowed this team.',
+                duration: 2000,
+                position: 'bottom',
+              });
+              toast.present();
+            }
+          },
+          { text: 'No'}
+        ]
+      });
+      confirm.present();
+    } else {
+      this.isFollowing = true;
+      //TODO: persist data
     }
   }
 }
