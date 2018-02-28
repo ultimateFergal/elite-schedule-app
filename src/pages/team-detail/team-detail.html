@@ -28,6 +28,13 @@
           Placeholder
         </ion-col>
       </ion-row>
+      <ion-item>
+        <ion-label>Date Filter: </ion-label>
+        <ion-toggle [(ngModel)]="useDateFilter" (ionChange)="dateChanged()  "></ion-toggle>
+        <ion-datetime displayFormat="M/D/YYYY" pickerFormat="M/D/YYYY"
+            [(ngModel)]="dateFilter" (ionChange)="dateChanged()"
+            [(disabled)]="!useDateFilter"></ion-datetime>
+      </ion-item>
     </ion-card-content>
   </ion-card>
   <ion-list>
@@ -44,6 +51,8 @@
       </ion-col>
       <ion-col width-20>
         <h4>{{ game.scoreDisplay }}</h4>
+        <!-- <ion-badge [class]="getScoreDisplayBadgeClass(game)">{{ getScoreWorL(game)}}</ion-badge> -->
+        <ion-badge color="getScoreDisplayBadgeClass(game)">{{ getScoreWorL(game) }}</ion-badge>
       </ion-col>
     </ion-row>
     </ion-item>

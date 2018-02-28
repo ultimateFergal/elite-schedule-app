@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -9,6 +9,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  */
 
  import * as _ from 'lodash';
+ import * as moment from 'moment';
 
  import { GamePage } from '../pages';
  import { EliteApi } from '../../shared/shared';
@@ -20,11 +21,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 
 export class TeamDetailPage {
+  allGames: any[];
+  dateFilter: string;
   games: any[];
   team: any;
   teamStanding: any;
-
   private tourneyData: any;
+  useDateFilter = false;
 
   constructor(private nav: NavController, 
               private navParams: NavParams,
@@ -63,6 +66,7 @@ export class TeamDetailPage {
                     };
                   })
                   .value();
+    this.allGames = this.games;
     this.teamStanding = _.find(this.tourneyData.standings, { 'teamId': this.team.id });
   }
 
@@ -83,4 +87,20 @@ export class TeamDetailPage {
     this.nav.parent.parent.push(GamePage, sourceGame);
   }
 
+  getScoreWorL(game){
+    return game.scoreDisplay ? game.scoreDisplay[0] : '';
+  }
+
+  getScoreDisplayBadgeClass(game){console.log(game);
+    //return game.scoreDisplay.indexOf('W:') === 0 ? 'badge-primary' : 'badge-danger';
+    return game.scoreDisplay.indexOf('W:') === 0 ? 'primary' : 'danger';
+  }
+
+  dateChanged(){
+    if (this.useDateFilter){
+      this.games = _.filter(this.allGames, g => moment(g.time).isSame(this.dateFilter, 'day'));
+    } else {
+      this.games = this.allGames;
+    }
+  }
 }
