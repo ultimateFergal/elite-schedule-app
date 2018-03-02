@@ -27,6 +27,7 @@ export class TeamsPage {
     { id: 2, name: 'Team Takeover' },
     { id: 3, name: 'DC Thunder' }
   ]; */
+  queryText: string;
 
   constructor(private nav: NavController, 
               private navParams: NavParams, 
@@ -66,6 +67,19 @@ export class TeamsPage {
       loader.dismiss();
       })
     })
+  }
+
+  updateTeams(){
+    let queryTextLower = this.queryText.toLowerCase();
+    let filteredTeams = [];
+    _.forEach(this.allTeamsDivisions, td => {
+      let teams = _.filter(td.divisionTeams, t => (<any>t).name.toLowerCase().includes(queryTextLower))
+      if (teams.length){
+        filteredTeams.push({divisionName: td.divisionName, divisionTeams: teams });
+      }
+    });
+
+    this.teams = filteredTeams;
   }
 
 }
