@@ -43,4 +43,15 @@ export class StandingsPage {
       //console.log('division Standings', this.allStandings);
   }
 
+  getHeader(record, recordIndex, records){
+/*     if(recordIndex % 10 === 0){
+      return 'Header!';
+    } 
+      return null; */
+      if(recordIndex === 0 || record.division !== records[recordIndex-1].division){
+        return record.division;
+      } 
+        return null;      
+  }
+
 }
