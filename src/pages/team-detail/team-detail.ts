@@ -12,7 +12,7 @@ import { IonicPage, AlertController, NavController, NavParams, ToastController }
  import * as moment from 'moment';
 
  import { GamePage } from '../pages';
- import { EliteApi } from '../../shared/shared';
+ import { EliteApi, UserSettings } from '../../shared/shared';
 
 @IonicPage()
 @Component({
@@ -25,7 +25,8 @@ export class TeamDetailPage {
   dateFilter: string;
   games: any[];
   team: any;
-  isFollowing = false;
+  //isFollowing:boolean = false;
+  isFollowing: any = false;
   teamStanding: any;
   private tourneyData: any;
   useDateFilter = false;
@@ -34,7 +35,8 @@ export class TeamDetailPage {
               private nav: NavController, 
               private navParams: NavParams,
               private toastController: ToastController,
-              private eliteApi: EliteApi) {
+              private eliteApi: EliteApi,
+              private userSettings: UserSettings) {
     //this.team = this.navParams.data;
     console.log('**nav params: ', this.navParams)
   }
@@ -71,6 +73,8 @@ export class TeamDetailPage {
                   .value();
     this.allGames = this.games;
     this.teamStanding = _.find(this.tourneyData.standings, { 'teamId': this.team.id });
+
+    this.userSettings.isFavoriteTeam(this.team.id).then(value => this.isFollowing = value);
   }
 
   getScoreDisplay(isTeam1, team1Score, team2Score){
@@ -82,7 +86,6 @@ export class TeamDetailPage {
     } else {
       return "";
     }
-
   }
 
   gameClicked($event, game){
@@ -94,7 +97,8 @@ export class TeamDetailPage {
     return game.scoreDisplay ? game.scoreDisplay[0] : '';
   }
 
-  getScoreDisplayBadgeClass(game){console.log(game);
+  getScoreDisplayBadgeClass(game){
+    //console.log(game);
     //return game.scoreDisplay.indexOf('W:') === 0 ? 'badge-primary' : 'badge-danger';
     return game.scoreDisplay.indexOf('W:') === 0 ? 'primary' : 'danger';
   }
@@ -107,6 +111,7 @@ export class TeamDetailPage {
     }
   }
 
+  //Seguir, volver o quitar de favorito
   toggleFollow(){
     if(this.isFollowing){
       let confirm = this.alertController.create({
@@ -117,7 +122,9 @@ export class TeamDetailPage {
             text: 'Yes', 
             handler: () => {
               this.isFollowing = false;
+              
               // TODO: persist data
+              this.userSettings.unfavoriteTeam(this.team);
 
               let toast =  this.toastController.create({
                 message: 'You have unfollowed this team.',
@@ -133,7 +140,19 @@ export class TeamDetailPage {
       confirm.present();
     } else {
       this.isFollowing = true;
+
       //TODO: persist data
+      this.userSettings.favoriteTeam(
+        this.team, 
+        this.tourneyData.tournament.id, 
+        this.tourneyData.tournament.name);
     }
+  }
+
+  refreshAll(refresher){
+    this.eliteApi.refreshCurrentTourney().subscribe(() => {
+      refresher.complete();
+      this.ionViewDidLoad();
+    })
   }
 }

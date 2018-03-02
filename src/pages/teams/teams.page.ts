@@ -62,7 +62,7 @@ export class TeamsPage {
               .value();
           this.teams = this.allTeamsDivisions
           //this.teams = data.teams;
-          console.log('division teams', this.teams);
+          //console.log('division teams', this.teams);
       loader.dismiss();
       })
     })

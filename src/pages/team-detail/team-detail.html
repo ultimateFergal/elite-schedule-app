@@ -19,6 +19,9 @@
   <h3>Name: {{ team.name }}</h3> -->
   <ion-card>
     <ion-card-content>
+      <ion-refresher (ionRefresh)="refreshAll($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <ion-row>
         <ion-col col-6>
           <h2>Record: {{ teamStanding?.wins }}-{{ teamStanding?.losses }}</h2>
