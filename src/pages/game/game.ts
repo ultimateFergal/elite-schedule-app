@@ -27,6 +27,7 @@ export class GamePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad GamePage');
     this.game = this.navParams.data;
+    this.game.gameTime = Date.parse(this.game.time);
   }
 
   teamTapped(teamId){
@@ -35,4 +36,15 @@ export class GamePage {
     this.nav.push(TeamHomePage, team);
   }
 
+  goToDirecctions(){
+
+  }
+
+  goToMap(){
+
+  }
+
+  isWinner(score1, score2){
+    return Number(score1) > Number(score2) ? 'primary' : 'danger' ;
+  }
 }
